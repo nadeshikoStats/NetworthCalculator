@@ -1,0 +1,311 @@
+{
+    "types": {
+        "CHAMBER": {
+            "coins": 25000,
+            "WORM_MEMBRANE": 100,
+            "GEMSTONE_MIXTURE": 1
+        },
+        "GENERIC_A": {
+            "coins": 250000
+        },
+        "GENERIC_B": {
+            "coins": 500000
+        },
+        "GENERIC_C": {
+            "coins": 5000
+        },
+        "AMBER_A": {
+            "coins": 5000,
+            "FINE_AMBER_GEM": 1
+        },
+        "AMETHYST_A": {
+            "coins": 100000,
+            "FINE_AMETHYST_GEM": 40
+        },
+        "AQUAMARINE_A": {
+            "coins": 50000,
+            "FINE_AQUAMARINE_GEM": 20
+        },
+        "AQUAMARINE_B": {
+            "coins": 100000,
+            "FINE_AQUAMARINE_GEM": 40
+        },
+        "AQUAMARINE_C": {
+            "coins": 50000,
+            "FINE_AQUAMARINE_GEM": 40
+        },
+        "COMBAT_A": {
+            "coins": 100000,
+            "FINE_JASPER_GEM": 40,
+            "FINE_SAPPHIRE_GEM": 40,
+            "FINE_RUBY_GEM": 40,
+            "FINE_AMETHYST_GEM": 40
+        },
+        "COMBAT_B": {
+            "coins": 250000,
+            "FLAWLESS_JASPER_GEM": 1,
+            "FLAWLESS_SAPPHIRE_GEM": 1,
+            "FLAWLESS_RUBY_GEM": 1,
+            "FLAWLESS_AMETHYST_GEM": 1
+        },
+        "COMBAT_C": {
+            "coins": 50000,
+            "FINE_JASPER_GEM": 20,
+            "FINE_SAPPHIRE_GEM": 20,
+            "FINE_RUBY_GEM": 20,
+            "FINE_AMETHYST_GEM": 20
+        },
+        "COMBAT_D": {
+            "coins": 50000,
+            "FINE_JASPER_GEM": 5,
+            "FINE_SAPPHIRE_GEM": 5,
+            "FINE_RUBY_GEM": 5,
+            "FINE_AMETHYST_GEM": 5
+        },
+        "DEFENSIVE_A": {
+            "coins": 250000,
+            "FLAWLESS_AMETHYST_GEM": 2,
+            "FLAWLESS_RUBY_GEM": 2
+        },
+        "JADE_A": {
+            "coins": 20000,
+            "FINE_JADE_GEM": 4
+        },
+        "JADE_B": {
+            "coins": 5000,
+            "FINE_JADE_GEM": 1
+        },
+        "JASPER_A": {
+            "coins": 250000,
+            "FLAWLESS_JASPER_GEM": 2
+        },
+        "JASPER_B": {
+            "coins": 50000,
+            "FINE_JASPER_GEM": 20
+        },
+        "JASPER_C": {
+            "coins": 100000,
+            "FINE_JASPER_GEM": 40
+        },
+        "PERIDOT_A": {
+            "coins": 50000,
+            "FINE_PERIDOT_GEM": 20
+        },
+        "PERIDOT_B": {
+            "coins": 100000,
+            "FINE_PERIDOT_GEM": 40
+        },
+        "RUBY_A": {
+            "coins": 20000,
+            "FINE_RUBY_GEM": 10
+        },
+        "RUBY_B": {
+            "coins": 50000,
+            "FINE_RUBY_GEM": 20
+        },
+        "RUBY_C": {
+            "coins": 5000,
+            "FINE_RUBY_GEM": 1
+        },
+        "RUBY_D": {
+            "coins": 20000,
+            "FINE_RUBY_GEM": 4
+        },
+        "RUBY_E": {
+            "coins": 50000,
+            "FINE_RUBY_GEM": 16
+        },
+        "SAPPHIRE_A": {
+            "coins": 50000,
+            "FINE_SAPPHIRE_GEM": 20
+        },
+        "SAPPHIRE_B": {
+            "coins": 100000,
+            "FINE_SAPPHIRE_GEM": 40
+        },
+        "SAPPHIRE_C": {
+            "coins": 250000,
+            "FLAWLESS_SAPPHIRE_GEM": 2
+        },
+        "SAPPHIRE_D": {
+            "coins": 250000,
+            "FLAWLESS_SAPPHIRE_GEM": 4
+        }
+    },
+    "items": {
+        "DARK_CLAYMORE": {
+            "COMBAT_0": "COMBAT_A",
+            "COMBAT_1": "COMBAT_A"
+        },
+        "GIANTS_SWORD": {
+            "JASPER_0": "JASPER_B",
+            "JASPER_1": "JASPER_C"
+        },
+        "STARRED_BONZO_STAFF": {
+            "SAPPHIRE_1": "SAPPHIRE_A"
+        },
+        "FIREDUST_DAGGER": {
+            "COMBAT_0": "GENERIC_A"
+        },
+        "^(STARRED_)?ICE_SPRAY_WAND$": {
+            "SAPPHIRE_0": "SAPPHIRE_A"
+        },
+        "^(MAWDREDGE|KINDLEBANE|DEATHRIPPER)_DAGGER$": {
+            "COMBAT_0": "GENERIC_A",
+            "OPAL_0": "GENERIC_B"
+        },
+        "^(ORNATE|FLORID)_ZOMBIE_SWORD$": {
+            "RUBY_0": "RUBY_A"
+        },
+        "REAPER_FALCHION": {
+            "JASPER_0": "JASPER_B"
+        },
+        "^(VOIDEDGE|VORPAL)_KATANA$": {
+            "JASPER_0": "JASPER_B",
+            "SAPPHIRE_0": "SAPPHIRE_B"
+        },
+        "ASPECT_OF_THE_DRAGONS": {
+            "JASPER_0": "JASPER_B"
+        },
+        "ASTRAEA": {
+            "DEFENSIVE_0": "DEFENSIVE_A",
+            "COMBAT_0": "COMBAT_B"
+        },
+        "ATOMSPLIT_KATANA": {
+            "JASPER_0": "JASPER_B",
+            "SAPPHIRE_0": "SAPPHIRE_B",
+            "SAPPHIRE_1": "SAPPHIRE_C"
+        },
+        "AURORA_STAFF": {
+            "SAPPHIRE_0": "GENERIC_A",
+            "SAPPHIRE_1": "GENERIC_A"
+        },
+        "AXE_OF_THE_SHREDDED": {
+            "JASPER_0": "JASPER_B",
+            "COMBAT_0": "COMBAT_A"
+        },
+        "BOUQUET_OF_LIES": {
+            "JASPER_0": "JASPER_B"
+        },
+        "^(STARRED_)?DAEDALUS_AXE$": {
+            "COMBAT_0": "COMBAT_C",
+            "COMBAT_1": "COMBAT_A"
+        },
+        "FLOWER_OF_TRUTH": {
+            "JASPER_0": "JASPER_B"
+        },
+        "HYPERION": {
+            "SAPPHIRE_0": "SAPPHIRE_D",
+            "COMBAT_0": "COMBAT_B"
+        },
+        "LIVID_DAGGER": {
+            "JASPER_0": "JASPER_B"
+        },
+        "^(STARRED_)?MIDAS_SWORD$": {
+            "JASPER_0": "JASPER_B",
+            "COMBAT_0": "COMBAT_A"
+        },
+        "POOCH_SWORD": {
+            "JASPER_0": "JASPER_B"
+        },
+        "SCYLLA": {
+            "COMBAT_0": "COMBAT_B",
+            "COMBAT_1": "COMBAT_B"
+        },
+        "^(STARRED_)?SPIRIT_SCEPTRE$": {
+            "SAPPHIRE_0": "SAPPHIRE_A"
+        },
+        "VALKYRIE": {
+            "JASPER_0": "JASPER_A",
+            "COMBAT_0": "COMBAT_B"
+        },
+        "^(STARRED_)?YETI_SWORD$": {
+            "SAPPHIRE_0": "SAPPHIRE_A",
+            "JASPER_0": "JASPER_C"
+        },
+        "FARMER_BOOTS": {
+            "PERIDOT_0": "PERIDOT_A"
+        },
+        "RANCHERS_BOOTS": {
+            "PERIDOT_0": "PERIDOT_A",
+            "PERIDOT_1": "PERIDOT_B"
+        },
+        "ENCHANTED_JACK_O_LANTERN": {
+            "PERIDOT_1": "PERIDOT_A"
+        },
+        "WATER_HYDRA_HEAD": {
+            "AQUAMARINE_0": "AQUAMARINE_A"
+        },
+        "PRECURSOR_EYE": {
+            "RUBY_0": "RUBY_B",
+            "AMETHYST_0": "AMETHYST_A"
+        },
+        "REAPER_MASK": {
+            "SAPPHIRE_0": "SAPPHIRE_A"
+        },
+        "^(SQUASH|CROPIE)_(HELMET|CHESTPLATE|LEGGINGS|BOOTS)$": {
+            "PERIDOT_0": "PERIDOT_A"
+        },
+        "^FARM_ARMOR_(HELMET|CHESTPLATE|LEGGINGS|BOOTS)$": {
+            "PERIDOT_1": "PERIDOT_A"
+        },
+        "^GOBLIN_(HELMET|CHESTPLATE|LEGGINGS|BOOTS)$": {
+            "AMBER_0": "GENERIC_C"
+        },
+        "^SALMON_(HELMET|CHESTPLATE|LEGGINGS|BOOTS)$": {
+            "AQUAMARINE_0": "AQUAMARINE_A"
+        },
+        "^(TAURUS_HELMET|FLAMING_CHESTPLATE|MOOGMA_LEGGINGS|SLUG_BOOTS)$": {
+            "AQUAMARINE_0": "AQUAMARINE_A",
+            "AQUAMARINE_1": "AQUAMARINE_B"
+        },
+        "^BLAZE_(HELMET|CHESTPLATE|LEGGINGS|BOOTS)$": {
+            "JASPER_0": "JASPER_B"
+        },
+        "^FLAMEBREAKER_(HELMET|CHESTPLATE|LEGGINGS|BOOTS)$": {
+            "AMBER_0": "AMBER_A",
+            "JADE_0": "JADE_A"
+        },
+        "^GLACITE_(HELMET|CHESTPLATE|LEGGINGS|BOOTS)$": {
+            "JADE_0": "JADE_B"
+        },
+        "^(GOLD|DIAMOND)_HUNTER_(HELMET|CHESTPLATE|LEGGINGS|BOOTS)$": {
+            "COMBAT_1": "GENERIC_A"
+        },
+        "^MASTIFF_(HELMET|CHESTPLATE|LEGGINGS|BOOTS)$": {
+            "RUBY_2": "RUBY_C",
+            "RUBY_3": "RUBY_D",
+            "RUBY_4": "RUBY_E"
+        },
+        "^SHADOW_ASSASSIN_(HELMET|CHESTPLATE|LEGGINGS|BOOTS)$": {
+            "JASPER_0": "JASPER_B"
+        },
+        "^SPONGE_(HELMET|CHESTPLATE|LEGGINGS|BOOTS)$": {
+            "AQUAMARINE_0": "AQUAMARINE_A"
+        },
+        "^THUNDER_(HELMET|CHESTPLATE|LEGGINGS|BOOTS)$": {
+            "COMBAT_0": "COMBAT_D",
+            "AQUAMARINE_0": "AQUAMARINE_C",
+            "AQUAMARINE_1": "AQUAMARINE_C"
+        },
+        "^(HOT_|BURNING_|FIERY_|INFERNAL_)?(AURORA|CRIMSON|TERROR|HOLLOW|FERVOR)_(HELMET|CHESTPLATE|LEGGINGS|BOOTS)$": {
+            "COMBAT_0": "COMBAT_B",
+            "COMBAT_1": "COMBAT_B"
+        },
+        "^DIVAN_(HELMET|CHESTPLATE|LEGGINGS|BOOTS)$": {
+            "AMBER_0": "CHAMBER",
+            "JADE_0": "CHAMBER",
+            "AMBER_1": "CHAMBER",
+            "JADE_1": "CHAMBER",
+            "TOPAZ_0": "CHAMBER"
+        },
+
+
+
+
+        "^POWER_WITHER_[A-Z_]+$": {
+            "JASPER_0": "JASPER_A",
+            "COMBAT_0": "COMBAT_A"
+        }
+    }
+}
