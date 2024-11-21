@@ -1,11 +1,31 @@
-package dev.niqumu.networth;
+/*
+ * This file is a part of the nadeshiko project. nadeshiko is free software, licensed under the MIT license.
+ *
+ * Usage of these works (including, yet not limited to, reuse, modification, copying, distribution, and selling) is
+ * permitted, provided that the relevant copyright notice and permission notice (as specified in LICENSE) shall be
+ * included in all copies or substantial portions of this software.
+ *
+ * These works are provided "AS IS" with absolutely no warranty of any kind, either expressed or implied.
+ *
+ * You should have received a copy of the MIT License alongside this software; refer to LICENSE for information.
+ * If not, refer to https://mit-license.org.
+ */
+
+package io.nadeshiko.networth;
 
 import lombok.Data;
 
 import java.text.DecimalFormat;
 
+/**
+ * Container for a player's networth, broken down into sections
+ */
 @Data
 public class Networth {
+
+    /**
+     * Used to pretty-print this Networth instance for debugging purposes
+     */
     public static final DecimalFormat formatter = new DecimalFormat("#,###");
 
     /**
@@ -40,6 +60,10 @@ public class Networth {
     private double essence;
     private double museum;
 
+    /**
+     * Create a new Networth instance with default (zero) values
+     * @param uuid The UUID of the player that this Networth instance represents
+     */
     Networth(String uuid) {
         this.uuid = uuid;
     }
@@ -83,10 +107,17 @@ public class Networth {
             this.pets + this.essence + this.museum;
     }
 
+    /**
+     * @return A formatted summary of this Networth instance
+     */
+    @Override
     public String toString() {
         return uuid + "'s Networth: " + formatter.format(this.getTotal()) + " coins";
     }
 
+    /**
+     * @return A detailed and formatted breakdown of this Networth instance
+     */
     public String getBreakdown() {
         return uuid + "'s Networth: " + formatter.format(this.getTotal()) + " coins" +
             "\n\nLiquid: " + formatter.format(this.getLiquid()) +
