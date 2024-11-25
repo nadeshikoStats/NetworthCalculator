@@ -28,4 +28,4 @@ To start, create an instance of the `NetworthCalculator` class via the `Networth
 The `NetworthCalaculator` class provides several public methods:
 - `calculateItem`, a general-purpose method to determine the value of an item. The specifics on how this works are discussed in the **Item Calculation** section.
 - `calculateItemCraft`, a method to calculate the raw craft cost of an item - how much it would cost to recreate this item exactly from raw materials.
-- `calculate`, the big one. Calculates the networth of the provided player on the provided profile, returning a `Networth` object.
+- `calculatePlayer`, the big one. Calculates the networth of the provided player on the provided profile, returning a `Networth` object.

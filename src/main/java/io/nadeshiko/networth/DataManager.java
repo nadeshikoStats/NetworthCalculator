@@ -72,8 +72,7 @@ public class DataManager {
 
             parsedPrices.entrySet().forEach(e -> this.basePriceMap.put(e.getKey(), e.getValue().getAsDouble()));
         } catch (Exception e) {
-            System.out.println("Failed to read file \"" + fileName + "\"!");
-            e.printStackTrace();
+            NetworthCalculator.LOGGER.error("Failed to read data file \"{}\"!", fileName, e);
         }
     }
 
@@ -88,8 +87,7 @@ public class DataManager {
 
             parsedReforges.entrySet().forEach(e -> this.reforgeStones.put(e.getKey(), e.getValue().getAsString()));
         } catch (Exception e) {
-            System.out.println("Failed to read reforges.json!");
-            e.printStackTrace();
+            NetworthCalculator.LOGGER.error("Failed to read reforges.json!", e);
         }
     }
 
@@ -133,8 +131,7 @@ public class DataManager {
             }
 
         } catch (Exception e) {
-            System.out.println("Failed to read gemstone_slots.json!");
-            e.printStackTrace();
+            NetworthCalculator.LOGGER.error("Failed to read gemstone_slots.json!", e);
         }
     }
 

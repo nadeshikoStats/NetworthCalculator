@@ -18,6 +18,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dev.dewy.nbt.Nbt;
 import dev.dewy.nbt.tags.collection.CompoundTag;
+import io.nadeshiko.networth.NetworthCalculator;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
@@ -41,8 +42,7 @@ public class InventoryUtil {
             CompoundTag parsedNbt = NBT.fromByteArray(gzipInputStream.readAllBytes());
             inventory = parsedNbt.toJson(0, NBT.getTypeRegistry());
         } catch (Exception e) {
-            System.err.println("Failed to decode inventory data!");
-            e.printStackTrace();
+            NetworthCalculator.LOGGER.error("Failed to decode inventory data!", e);
             return new JsonArray();
         }
 

@@ -15,6 +15,7 @@ package io.nadeshiko.networth.market;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import io.nadeshiko.networth.NetworthCalculator;
 import io.nadeshiko.networth.exception.NoSuchProductException;
 import io.nadeshiko.networth.util.HTTPUtil;
 import lombok.NonNull;
@@ -56,7 +57,7 @@ public class BazaarHandler {
         JsonObject product = this.getProduct(id);
 
         if (product == null) {
-            System.err.println("[Unsafe] No product by the ID of " + id + " exists!");
+            NetworthCalculator.LOGGER.warn("No product by the ID of {} exists!", id);
             return 0;
         }
 
@@ -70,7 +71,7 @@ public class BazaarHandler {
             JsonObject jsonResponse = JsonParser.parseString(response.response()).getAsJsonObject();
 
             if (!jsonResponse.get("success").getAsBoolean()) {
-                System.err.println("Bazaar data indicated a failure!");
+                NetworthCalculator.LOGGER.error("Bazaar data didn't return successfully!");
                 return;
             }
 
@@ -79,8 +80,7 @@ public class BazaarHandler {
 
             lastUpdateTime = System.currentTimeMillis();
         } catch (Exception e) {
-            System.err.println("Failed to fetch Bazaar data!");
-            e.printStackTrace();
+            NetworthCalculator.LOGGER.error("Failed to fetch Bazaar data!", e);
         }
     }
 }

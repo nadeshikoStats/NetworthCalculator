@@ -28,18 +28,38 @@ import io.nadeshiko.networth.exception.NoSuchProductException;
 import io.nadeshiko.networth.item.GemstoneSlotType;
 import lombok.Getter;
 import lombok.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The core class of the {@code NetworthCalculator} library.
+ */
 @Getter
+@SuppressWarnings("unused") // it's a library, public API methods are not used by us
 public class NetworthCalculator {
 
+    /**
+     * Global static library logger
+     */
+    public static final Logger LOGGER = LoggerFactory.getLogger("NetworthCalculator");
+
+    /**
+     * The Hypixel API key used by this instance
+     */
     private final String apiKey;
 
+    /**
+     * Market handlers
+     */
     private final BazaarHandler bazaarHandler = new BazaarHandler();
     private final AuctionHandler auctionHandler = new AuctionHandler();
 
+    /**
+     * Managers
+     */
     private final DataManager dataManager = new DataManager();
     private final ExoticManager exoticManager = new ExoticManager();
 
@@ -84,9 +104,7 @@ public class NetworthCalculator {
         }
 
         else { // we didn't find a similar item on the AH, fall back to the raw craft value
-            double price = this.calculateItemCraft(item);
-            System.out.println("Couldn't calculate an AH-based price for " + item.getId() + "! Calculated " + price);
-            return price;
+            return this.calculateItemCraft(item);
         }
     }
 
@@ -127,7 +145,7 @@ public class NetworthCalculator {
             String reforgeStone = this.dataManager.getReforgeStone(item.getReforge());
 
             if (reforgeStone == null) {
-                System.err.println("Encountered unknown reforge \"" + item.getReforge() + "\"!");
+                LOGGER.warn("Encountered unknown reforge \"{}\"!", item.getReforge());
             } else {
                 price += this.bazaarHandler.getMedianPriceUnsafe(reforgeStone);
 //                System.out.println("Reforge: " + item.getReforge() + " (" + reforgeStone + ") (" +
@@ -226,6 +244,8 @@ public class NetworthCalculator {
         //  Step 3: Apply multiplicative modifiers
         // ================================================================
 
+        // todo
+
         // done
         price *= item.getCount();
         return price;
@@ -236,7 +256,7 @@ public class NetworthCalculator {
      * @param item The {@link Item} to calculate for
      * @return The cost to upgrade this item to the given upgrade level
      */
-    public double calculateUpgradeLevelValue(@NonNull Item item) {
+    private double calculateUpgradeLevelValue(@NonNull Item item) {
         double value = 0;
 
         // Dungeon items
@@ -281,17 +301,19 @@ public class NetworthCalculator {
      * @param uuid The UUID of the player to analyze
      * @return The broken-down networth of the player, as a {@link Networth} object
      */
-    public @NonNull Networth calculate(@NonNull JsonObject profile, @NonNull String uuid)
+    public @NonNull Networth calculatePlayer(@NonNull JsonObject profile, @NonNull String uuid)
             throws MalformedProfileException, IllegalArgumentException {
 
         // Make sure that the provided profile is valid
         if (!profile.has("members")) {
+            LOGGER.error("Attempted to handle malformed profile object for {}!", uuid);
             throw new MalformedProfileException("Provided profile object doesn't contain a members list!");
         }
 
         // Make sure that the player exists within the profile
         uuid = uuid.replace("-", "");
         if (!profile.getAsJsonObject("members").has(uuid)) {
+            LOGGER.error("Encountered profile object missing UUID {}!", uuid);
             throw new IllegalArgumentException("UUID \"" + uuid + "\" doesn't exist within the given profile!");
         }
 
@@ -392,9 +414,8 @@ public class NetworthCalculator {
                 try {
                     value += this.bazaarHandler.getMedianPrice(entry.getAsJsonObject("attributes")
                         .getAsJsonObject("id").get("value").getAsString()) * entry.get("count").getAsInt();
-                } catch (NoSuchProductException e) {
-                    System.err.println("The Bazaar is missing bait? This shouldn't happen!");
-                    e.printStackTrace();
+                } catch (NoSuchProductException ignored) {
+                    // not all baits are on the bazaar!
                 }
             }
         }
@@ -438,21 +459,21 @@ public class NetworthCalculator {
         JsonObject essence = playerData.getAsJsonObject("currencies").getAsJsonObject("essence");
 
         if (essence == null || essence.isJsonNull()) {
-            return 0;
+            return 0; // if the player doesn't have any essence in the API, their essence is worth 0 coins
         }
 
         try {
             double value = 0;
+
+            // iterate over essence types
             for (Map.Entry<String, JsonElement> e : essence.entrySet()) {
                 value += this.bazaarHandler.getMedianPrice("ESSENCE_" + e.getKey()) *
                     e.getValue().getAsJsonObject().get("current").getAsInt();
             }
             return value;
         } catch (NoSuchProductException e) {
-            System.out.println("Somehow, essence isn't on the Bazaar? This should not happen!");
-            e.printStackTrace();
+            LOGGER.error("Somehow, a type of essence isn't on the Bazaar? This shouldn't happen!", e);
+            return 0;
         }
-
-        return 0;
     }
 }

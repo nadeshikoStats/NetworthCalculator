@@ -16,6 +16,7 @@ package io.nadeshiko.networth.market;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import io.nadeshiko.networth.NetworthCalculator;
 import io.nadeshiko.networth.util.HTTPUtil;
 import io.nadeshiko.networth.item.Item;
 import lombok.NonNull;
@@ -92,8 +93,7 @@ public class AuctionHandler {
             this.currentAuctions = newCurrentAuctions;
             lastUpdateTime = System.currentTimeMillis();
         } catch (Exception e) {
-            System.err.println("Failed to fetch AH data!");
-            e.printStackTrace();
+            NetworthCalculator.LOGGER.error("Failed to fetch AH data!", e);
         }
     }
 
@@ -102,7 +102,7 @@ public class AuctionHandler {
         JsonObject jsonResponse = JsonParser.parseString(response.response()).getAsJsonObject();
 
         if (!jsonResponse.get("success").getAsBoolean()) {
-            System.err.println("AH data indicated a failure!");
+            NetworthCalculator.LOGGER.error("AH data didn't return successfully!");
             return 0;
         }
 
