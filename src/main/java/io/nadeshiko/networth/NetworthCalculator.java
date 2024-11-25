@@ -42,6 +42,11 @@ import java.util.Map;
 public class NetworthCalculator {
 
     /**
+     * Calculator version number
+     */
+    public static String VERSION = "1.0.0-SNAPSHOT";
+
+    /**
      * Global static library logger
      */
     public static final Logger LOGGER = LoggerFactory.getLogger("NetworthCalculator");
@@ -141,15 +146,18 @@ public class NetworthCalculator {
         //  Step 2: Determine the value of modifiers
         // ================================================================
 
-        if (item.getReforge() != null && !item.getReforge().equals("greater_spook")) {
-            String reforgeStone = this.dataManager.getReforgeStone(item.getReforge());
+        if (item.getReforge() != null && !item.getReforge().equals("greater_spook") && !item.getReforge().equals("none")) {
 
-            if (reforgeStone == null) {
-                LOGGER.warn("Encountered unknown reforge \"{}\"!", item.getReforge());
-            } else {
-                price += this.bazaarHandler.getMedianPriceUnsafe(reforgeStone);
+            if (!this.dataManager.isDefaultReforge(item.getReforge())) {
+                String reforgeStone = this.dataManager.getReforgeStone(item.getReforge());
+
+                if (reforgeStone == null) {
+                    LOGGER.warn("Encountered unknown reforge \"{}\" on {}!", item.getReforge(), item.getId());
+                } else {
+                    price += this.bazaarHandler.getMedianPriceUnsafe(reforgeStone);
 //                System.out.println("Reforge: " + item.getReforge() + " (" + reforgeStone + ") (" +
 //                    Networth.formatter.format(this.bazaarHandler.getMedianPriceUnsafe(reforgeStone)) + ")");
+                }
             }
         }
         if (item.getUpgradeLevel() > 0) {
@@ -205,6 +213,10 @@ public class NetworthCalculator {
         for (Map.Entry<String, Integer> enchantment : item.getEnchantments().entrySet()) {
             String name = enchantment.getKey();
             int level = enchantment.getValue();
+
+            if (this.dataManager.isTieredEnchant(name.toUpperCase())) {
+                level = 1; // for tiered (stacking) enchants, only level 1 is sellable, so check that instead
+            }
 
             String id = "ENCHANTMENT_" + name.toUpperCase() + "_" + level;
             price += this.bazaarHandler.getMedianPriceUnsafe(id);

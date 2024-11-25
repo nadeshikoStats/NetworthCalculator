@@ -13,6 +13,7 @@
 
 package io.nadeshiko.networth;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -54,11 +55,23 @@ public class DataManager {
      */
     private final Map<String, Map<String, String>> gemstoneSlots = new HashMap<>();
 
+    /**
+     * A list of tiered enchantments
+     */
+    private final List<String> tieredEnchants = new ArrayList<>();
+
+    /**
+     * A list of default reforges
+     */
+    private final List<String> defaultReforges = new ArrayList<>();
+
     public DataManager() {
         this.readBasePriceFile("accessories.json");
 
         this.readReforgeStoneFile();
         this.readGemstoneSlotsFile();
+        this.readTieredEnchantsFile();
+        this.readDefaultReforgesFile();
     }
 
     private void readBasePriceFile(@NonNull String fileName) {
@@ -135,6 +148,36 @@ public class DataManager {
         }
     }
 
+    private void readTieredEnchantsFile() {
+        try (InputStream inputStream = DataManager.class.getResourceAsStream("/tiered_enchants.json")) {
+            if (inputStream == null) {
+                throw new Exception("Input stream is null!");
+            }
+
+            JsonArray parsedTieredEnchants = JsonParser.parseString(new BufferedReader(new InputStreamReader(inputStream))
+                .lines().collect(Collectors.joining("\n"))).getAsJsonArray();
+
+            parsedTieredEnchants.forEach(enchant -> this.tieredEnchants.add(enchant.getAsString()));
+        } catch (Exception e) {
+            NetworthCalculator.LOGGER.error("Failed to read tiered_enchants.json!", e);
+        }
+    }
+
+    private void readDefaultReforgesFile() {
+        try (InputStream inputStream = DataManager.class.getResourceAsStream("/default_reforges.json")) {
+            if (inputStream == null) {
+                throw new Exception("Input stream is null!");
+            }
+
+            JsonArray parsedDefaultReforges = JsonParser.parseString(new BufferedReader(new InputStreamReader(inputStream))
+                .lines().collect(Collectors.joining("\n"))).getAsJsonArray();
+
+            parsedDefaultReforges.forEach(reforge -> this.defaultReforges.add(reforge.getAsString()));
+        } catch (Exception e) {
+            NetworthCalculator.LOGGER.error("Failed to read default_reforges.json!", e);
+        }
+    }
+
     /**
      * Get the hardcoded base price of an item, if one exists
      * @param item The {@link Item} to look up the base price of
@@ -162,6 +205,24 @@ public class DataManager {
         return this.reforgeStones.getOrDefault(reforgeName, null);
     }
 
+    /**
+     * Tests whether a given enchantment is a tiered (stacking) enchant
+     * @param enchantId The ID of the enchantment to check
+     * @return {@code true} if the provided enchantment is tiered
+     */
+    public boolean isTieredEnchant(@NonNull String enchantId) {
+        return this.tieredEnchants.contains(enchantId);
+    }
+
+    /**
+     * Tests whether a given reforge is a default (basic) reforge
+     * @param reforge The ID of the reforge to check
+     * @return {@code true} if the provided reforge is a default reforge
+     */
+    public boolean isDefaultReforge(@NonNull String reforge) {
+        return this.defaultReforges.contains(reforge);
+    }
+
     public List<GemstoneSlotType> getUnlockedGemstoneSlots(@NonNull Item item) {
 
         // get a map of all unlockable slots on this item
@@ -179,7 +240,13 @@ public class DataManager {
         List<GemstoneSlotType> slotTypes = new ArrayList<>();
 
         for (String unlockedGemstoneSlot : item.getUnlockedGemstoneSlots()) {
-            slotTypes.add(this.gemstoneSlotTypes.get(slots.get(unlockedGemstoneSlot)));
+            GemstoneSlotType type = this.gemstoneSlotTypes.get(slots.get(unlockedGemstoneSlot));
+
+            if (type == null) {
+                continue; // this can happen sometimes with item families with different slot types, like wither blades
+            }
+
+            slotTypes.add(type);
         }
 
         return slotTypes;

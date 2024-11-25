@@ -13,6 +13,7 @@
 
 package io.nadeshiko.networth;
 
+import com.google.gson.JsonObject;
 import lombok.Data;
 
 import java.text.DecimalFormat;
@@ -142,5 +143,55 @@ public class Networth {
             "\n - Pets: " + formatter.format(this.getPets()) +
             "\n - Essence: " + formatter.format(this.getEssence()) +
             "\n - Museum: " + formatter.format(this.getMuseum());
+    }
+
+    /**
+     * @return This Networth object, serialized as a {@code JsonObject}
+     */
+    public JsonObject serialize() {
+        JsonObject serialized = new JsonObject();
+
+        serialized.addProperty("calculator", "nadeshiko calculator " + NetworthCalculator.VERSION);
+        serialized.addProperty("owner", this.uuid);
+        serialized.addProperty("total", this.getTotal());
+
+        JsonObject liquid = new JsonObject();
+        liquid.addProperty("total", this.getLiquid());
+        liquid.addProperty("purse", this.purse);
+        liquid.addProperty("bank", this.bank);
+        serialized.add("liquid", liquid);
+
+        JsonObject bags = new JsonObject();
+        bags.addProperty("total", this.getBags());
+        bags.addProperty("sacks", this.sacks);
+        bags.addProperty("accessories", this.accessories);
+        bags.addProperty("fishing_bag", this.fishingBag);
+        bags.addProperty("quiver", this.quiver);
+        bags.addProperty("potion_bag", this.potionBag);
+        serialized.add("bags", bags);
+
+        JsonObject armor = new JsonObject();
+        armor.addProperty("total", this.getArmor());
+        armor.addProperty("active_armor", this.activeArmor);
+        armor.addProperty("active_equipment", this.activeEquipment);
+        armor.addProperty("wardrobe", this.wardrobe);
+        serialized.add("armor", armor);
+
+        JsonObject items = new JsonObject();
+        items.addProperty("total", this.getItems());
+        items.addProperty("inventory", this.inventory);
+        items.addProperty("storage", this.storage);
+        items.addProperty("ender_chest", this.enderChest);
+        items.addProperty("vault", this.vault);
+        serialized.add("items", items);
+
+        JsonObject other = new JsonObject();
+        armor.addProperty("total", this.pets + this.essence + this.museum);
+        armor.addProperty("pets", this.pets);
+        armor.addProperty("essence", this.essence);
+        armor.addProperty("museum", this.museum);
+        serialized.add("other", other);
+
+        return serialized;
     }
 }
