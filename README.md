@@ -1,3 +1,6 @@
+> [!WARNING]  
+> This repository was abandoned by its owner and does not currently function as intended. This program may cause memory leaks and crash your server. Use with caution.
+
 # NetworthCalculator
 A flexible and accurate Hypixel SkyBlock networth library written in Java, designed for [nadeshiko.io](https://nadeshiko.io) ([GitHub](https://github.com/NadeshikoStats/nadeshiko.io)).
 
